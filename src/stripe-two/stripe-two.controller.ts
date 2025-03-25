@@ -18,12 +18,6 @@ export class StripeTwoController {
     return { sessionUrl: session.sessionUrl };
   }
 
-  @Post('verify-payment')
-  async verifyPayment(@Body() data: { sessionId: string }) {
-    const success = await this.stripeService.verifyPayment(data.sessionId);
-    return { success };
-  }
-
   @Post('webhook')
   async handleWebhook(
     @Req() req: Request,  // No need for RawRequest anymore

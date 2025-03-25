@@ -88,16 +88,6 @@ export class StripeTwoService {
     await this.userRepository.save(user);
     // console.log(' User saved successfully:', user);
   }
-
-  async verifyPayment(sessionId: string): Promise<boolean> {
-    const session = await this.stripe.checkout.sessions.retrieve(sessionId);
-    
-    if (session.payment_status === 'paid') {
-      await this.savePayment(session);
-      return true;
-    }
-    return false;
-  }
   
   
 }
