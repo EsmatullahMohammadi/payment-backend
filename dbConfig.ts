@@ -1,5 +1,5 @@
 
-import { Payment } from "src/entities/payment.entity";
+
 import { User } from "src/entities/user.entity";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
@@ -10,6 +10,6 @@ export const pgConfig: PostgresConnectionOptions = {
     username: 'postgres',
     password: 'esmatullah',
     database: 'subcription',
-    entities: [User, Payment],
+    entities: [User],
     synchronize: true,
 };
