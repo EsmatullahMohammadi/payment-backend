@@ -28,15 +28,39 @@ export class StripeTwoService {
           price_data: {
             currency: 'usd',
             product_data: { name: 'Craft App plan 1' },
-            unit_amount: amount, // Amount in cents
+            unit_amount: amount,
           },
           quantity: 1,
         },
       ],
       success_url: `http://localhost:4200/payment-two?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: 'http://localhost:4200/payment-two?cancelled=true',
+      cancel_url: 'http://localhost:4200/subscription',
     });
 
     return { sessionUrl: session.url };
+  }
+
+  // ✅ Construct Event for Webhook
+  constructEvent(payload: Buffer, signature: string, secret: string) {
+    return this.stripe.webhooks.constructEvent(payload, signature, secret);
+  }
+
+  // ✅ Save Payment Data to Database
+  async savePayment(session: Stripe.Checkout.Session) {
+    console.log('✅ Payment successful! Saving data to database...');
+
+    // Replace with actual database logic (TypeORM, Prisma, etc.)
+    const paymentData = {
+      sessionId: session.id,
+      email: session.customer_details?.email,
+      amountPaid: session.amount_total ? session.amount_total / 100 : 0, // Convert cents to dollars
+      currency: session.currency,
+      status: session.payment_status,
+    };
+
+    // Example: Save to database (replace with your database logic)
+    console.log('Saving payment:', paymentData);
+    
+    // Here you can call your database service to save the paymentData
   }
 }
