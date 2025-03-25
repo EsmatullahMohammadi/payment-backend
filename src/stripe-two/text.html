@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bordered-link {
+            position: relative;
+            text-decoration: none;
+            padding: 10px 20px;
+            color: black;
+        }
+
+        .bordered-link::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border: 2px solid red;
+            opacity: 0;
+            /* Initially hidden */
+            transition: opacity 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        .bordered-link:hover::before {
+            opacity: 1;
+            /* Show border on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#" class="bordered-link">Hover Me</a>
+</body>
+
+</html>

@@ -11,5 +11,5 @@ export const pgConfig: PostgresConnectionOptions = {
     password: 'esmatullah',
     database: 'subcription',
     entities: [User, Payment],
-    synchronize: true, // ⚠️ Use only in development! Set to false in production
+    synchronize: true,
 };

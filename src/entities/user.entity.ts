@@ -1,13 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('user')
-export class User{
-	@PrimaryGeneratedColumn()
-	id: number;
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column()
-	name: string;
+  @Column({ unique: true })
+  email: string;
 
-	@Column()
-	lastName: string;
+  @Column({ nullable: true, type: 'varchar' }) // Allow NULL values
+  stripeCustomerId: string | null;
+
+  @Column({ default: 'free' }) // Plan types: free, basic, premium
+  plan: string;
 }
