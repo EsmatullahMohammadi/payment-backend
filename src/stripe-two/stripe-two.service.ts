@@ -32,7 +32,7 @@ export class StripeTwoService {
         {
           price_data: {
             currency: 'usd',
-            product_data: { name: 'Craft App plan 1' },
+            product_data: { name: `Craft App plan (${plan})` },
             unit_amount: amount,
           },
           quantity: 1,
@@ -57,7 +57,7 @@ export class StripeTwoService {
   
 
   //  Save Payment Data to Database
-  async savePayment(session: Stripe.Checkout.Session) {
+  async savePayment(session: Stripe.Checkout.Session, plan) {
     console.log('Payment successful! Saving data to database...');
   
     const email = session.customer_details?.email;
@@ -74,14 +74,14 @@ export class StripeTwoService {
   
     if (user) {
       console.log(' Existing user found, updating plan...');
-      user.plan = 'premium'; // 
+      user.plan = plan; // 
       user.stripeCustomerId = stripeCustomerId;
     } else {
       console.log(' New user, creating record...');
       user = this.userRepository.create({
         email,
         stripeCustomerId,
-        plan: 'premium', // Assign correct plan
+        plan: plan, // Assign correct plan
       });
     }
   
